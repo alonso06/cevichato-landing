@@ -1,11 +1,32 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Hero-section -->
+  <section class="bg-sky-base">
+    <!-- Reloj -->
+    <div>reloj</div>
+    <div>Contador</div>
+    <div class="flex flex-col text-center items-center justify-center">
+      <p>OFERTA ESPECIAL</p>
+      <h1 class="flex flex-col">
+        <span>DÚO CEVICHATO</span>
+        <span>S/.20</span>
+      </h1>
+    </div>
+    <div class="flex flex-col gap-3.5">
+      <div>COMBO 01</div>
+      <div>COMBO 02</div>
+    </div>
+    <p>
+      Reserva y asegura un dúo puedes recojerlo en tienda o te lo enviamos a
+      casa
+    </p>
+    <button>OBTENER DÚO CON S/.10</button>
+    <div class="bg-yellow-base">OFERTA LIMITADA - STOCK LIMITADO</div>
+  </section>
 </Layout>

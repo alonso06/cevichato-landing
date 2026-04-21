@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+
+    --color-sky-base: #104474;
+    --color-sky-v2-base: #0B8CF1;
+    --color-sky-v3-base: #BFE6F7;
+    --color-white-base: #FFFFFF;
+    --color-brown-base: #E2A47D;
+    --color-brown-v2-base: #BD835B;
+    --color-yellow-base: #FFCC66;
+    
+}
+
+body {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+  background-color: transparent;
+  color: #FFFFFF;
+}
+
+h1 {
+  font-family: "Bebas Neue", sans-serif;
+}
+header, footer, button {
+  font-family: "Hanken Grotesk Variable", sans-serif;
+}
+
+
