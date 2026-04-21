@@ -21,10 +21,19 @@ body {
 }
 
 h1 {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "permanent marker";
 }
-header, footer, button {
-  font-family: "Hanken Grotesk Variable", sans-serif;
+
+#title-countdown,#info-combo{
+  font-family: 'Caveat Variable', cursive;
+}
+
+h2, #info-hero, #subtitle-hero {
+  font-family: "caveat brush";
+}
+
+p, button, #tape-offer, #items-countdown{
+  font-family: 'Bebas neue';
 }
 
 

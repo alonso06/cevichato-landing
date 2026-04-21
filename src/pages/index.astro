@@ -1,4 +1,8 @@
 ---
+import ComboCard from "../components/ui/ComboCard.astro";
+import CountDown from "../components/ui/CountDown.astro";
+import ItemCounter from "../components/ui/ItemCounter.astro";
+import SaleButton from "../components/ui/SaleButton.astro";
 import Layout from "../layouts/Layout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -7,26 +11,41 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout>
   <!-- Hero-section -->
-  <section class="bg-sky-base">
-    <!-- Reloj -->
-    <div>reloj</div>
-    <div>Contador</div>
-    <div class="flex flex-col text-center items-center justify-center">
-      <p>OFERTA ESPECIAL</p>
-      <h1 class="flex flex-col">
-        <span>DÚO CEVICHATO</span>
-        <span>S/.20</span>
+  <div
+    class="flex flex-col justify-center items-center bg-sky-base px-[0.938em]"
+  >
+    <div class="flex flex-col justify-center items-center gap-5">
+      <!-- Reloj -->
+      <CountDown />
+      <!-- Contador -->
+      <ItemCounter />
+    </div>
+    <div
+      class="flex flex-col text-center items-center justify-center mt-4 mb-5"
+    >
+      <p id="subtitle-hero" class="text-xl text-yellow-base">
+        OFERTA ESPECIAL:
+      </p>
+      <h1 class="flex flex-col gap-1.5 text-brown-base">
+        <span class="text-4xl">DÚO CEVICHATO</span>
+        <hr class="border-white-base border w-4/5 ml-2 -rotate-1" />
+        <span class="text-[2em] mt-0.5">S/.20</span>
       </h1>
     </div>
     <div class="flex flex-col gap-3.5">
-      <div>COMBO 01</div>
-      <div>COMBO 02</div>
+      <ComboCard name="Combo 01" item="CEVICHE + ARROZ CON MARIZCOS" />
+      <ComboCard name="Combo 02" item="CEVICHE + ARROZ CON MARIZCOS" />
     </div>
-    <p>
+    <p id="info-hero" class="text-xl mt-3.5 text-center">
       Reserva y asegura un dúo puedes recojerlo en tienda o te lo enviamos a
       casa
     </p>
-    <button>OBTENER DÚO CON S/.10</button>
-    <div class="bg-yellow-base">OFERTA LIMITADA - STOCK LIMITADO</div>
-  </section>
+    <SaleButton />
+  </div>
+  <div
+    id="tape-offer"
+    class="w-full h-9 flex items-center bg-yellow-base text-lg text-sky-base py-2"
+  >
+    OFERTA LIMITADA - STOCK LIMITADO
+  </div>
 </Layout>
