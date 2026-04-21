@@ -1,31 +1,30 @@
 ---
-const isChalk = true;
-const items = [
-  { label: "DÍA", value: 10 },
-  { label: "HORAS", value: 10 },
-  { label: "MINUTOS", value: 10 },
-  { label: "SEGUNDOS", value: 10 },
-];
+const { targetDate, itsClose = true } = Astro.props;
+
+const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
 ---
 
-<div class="flex flex-col items-center gap-3">
+<div class="flex flex-col items-center gap-3" data-target-date={targetDate}>
   <p id="title-countdown" class="text-lg md:text-3xl">FINALIZA EN:</p>
   <div id="items-countdown" class="flex items-end gap-3 p-2.5 md:gap-5">
     {
-      items.map((item, i) => (
-        <div key={item.label} class="flex items-end gap-3 md:gap-5">
+      labels.map((label, i) => (
+        <div class="flex labels-end gap-3 md:gap-5">
           <div class="flex flex-col items-center min-w-18 md:min-w-[5rem]">
-            <span class="font-bebas text-[2em] md:text-7xl leading-none">
-              {item.value}
+            <span class="text-[2em] md:text-7xl leading-none" data-time={label}>
+              00
             </span>
-            <span class="text-[1em] md:text-xs tracking-[0.2em] mt-1">
-              {item.label}
+            <span
+              class="
+             text-[1em] md:text-xs mt-1"
+            >
+              {label}
             </span>
           </div>
-          {i < items.length - 1 && (
+          {i < labels.length - 1 && (
             <span
-              class={`font-bebas text-4xl md:text-6xl leading-none pb-5 md:pb-6 ${
-                isChalk ? "chalk-accent" : "text-terracotta"
+              class={`label-count text-4xl md:text-6xl leading-none pb-5 md:pb-6 ${
+                itsClose ? "chalk-accent" : "text-terracotta"
               }`}
             >
               :
@@ -36,3 +35,60 @@ const items = [
     }
   </div>
 </div>
+
+<script>
+  // const container = document.currentScript.parentElement;
+  const container = document.querySelector("[data-target-date]");
+  if (container) {
+    const target = new Date(container.dataset.targetDate).getTime();
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = target - now;
+
+      // console.log("Diff ", diff);
+
+      if (diff <= 0) {
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      if (!container) return;
+
+      const containerDays = container.querySelector('[data-time="DÍAS"]');
+      const containerHours = container.querySelector('[data-time="HORAS"]');
+      const containerMinutes = container.querySelector('[data-time="MINUTOS"]');
+      const containerSeconds = container.querySelector(
+        '[data-time="SEGUNDOS"]',
+      );
+
+      if (!days || !hours || !minutes || !seconds) return;
+      if (
+        !containerDays ||
+        !containerHours ||
+        !containerMinutes ||
+        !containerSeconds
+      )
+        return;
+
+      containerDays.textContent = String(days).padStart(2, "0");
+
+      if (diff <= 3600000) {
+        containerDays.classList.add("text-red-500");
+        containerHours.classList.add("text-red-500");
+        containerMinutes.classList.add("text-red-500");
+        containerSeconds.classList.add("text-red-500");
+      }
+
+      containerHours.textContent = String(hours).padStart(2, "0");
+      containerMinutes.textContent = String(minutes).padStart(2, "0");
+      containerSeconds.textContent = String(seconds).padStart(2, "0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+</script>
