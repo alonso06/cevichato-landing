@@ -66,14 +66,14 @@ const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
         '[data-time="SEGUNDOS"]',
       );
 
-      if (!days || !hours || !minutes || !seconds) return;
-      if (
-        !containerDays ||
-        !containerHours ||
-        !containerMinutes ||
-        !containerSeconds
-      )
-        return;
+      // if (!days || !hours || !minutes || !seconds) return;
+      // if (
+      //   !containerDays ||
+      //   !containerHours ||
+      //   !containerMinutes ||
+      //   !containerSeconds
+      // )
+      //   return;
 
       containerDays.textContent = String(days).padStart(2, "0");
 

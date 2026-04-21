@@ -1,4 +1,76 @@
-<div class="w-22 text-center border border-white-base rounded-lg py-2 px-5">
+---
+interface Props {
+  startTime: string;
+}
+
+const { startTime } = Astro.props;
+---
+
+<div
+  data-start-date={startTime}
+  class="w-22 text-center border border-white-base rounded-lg py-2 px-5"
+>
   <p class="text-lg">QUEDAN</p>
-  <p class="text-5xl">10</p>
+  <p class="text-5xl" data-stock>10</p>
 </div>
+
+<script>
+  const container = document.querySelector("[data-start-date]");
+  const START_TARGET_TIME = new Date(container.dataset.startDate).getTime();
+  const STOCK_INITIAL = 10;
+  const START_TIME = new Date(START_TARGET_TIME).getTime();
+
+  // Generador de números pseudo-aleatorios con semilla fija (Mulberry32)
+  // Esto garantiza que todos los usuarios generen exactamente
+  // la misma secuencia de intervalos, sin necesidad de backend.
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0;
+      seed = (seed + 0x6d2b79f5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Genera la lista de momentos (timestamps) en que ocurre cada disminución de stock.
+  // Los intervalos entre disminuciones van de 30 min a 2 horas (aleatorio con semilla fija).
+  function generateDropSchedule(initialStock, startTime, seed = 42) {
+    const rand = mulberry32(seed);
+    const MIN_INTERVAL = 30 * 60 * 1000; // 30 minutos
+    const MAX_INTERVAL = 2 * 60 * 60 * 1000; // 2 horas
+
+    const schedule = [];
+    let t = startTime;
+
+    for (let i = 0; i < initialStock; i++) {
+      const interval = MIN_INTERVAL + rand() * (MAX_INTERVAL - MIN_INTERVAL);
+      t += interval;
+      schedule.push(t);
+    }
+
+    return schedule; // schedule[i] = timestamp en que el stock baja de (initial - i) a (initial - i - 1)
+  }
+
+  // Calcula el stock actual según el tiempo real
+  function getCurrentStock(schedule, initialStock) {
+    const now = Date.now();
+    const drops = schedule.filter((t) => t <= now).length;
+    return Math.max(initialStock - drops, 0);
+  }
+
+  const schedule = generateDropSchedule(STOCK_INITIAL, START_TIME);
+  const stockEl = document.querySelector("[data-stock]");
+
+  function render() {
+    const stock = getCurrentStock(schedule, STOCK_INITIAL);
+    stockEl.textContent = stock;
+    if (stock <= 3) {
+      stockEl?.classList.add("text-red-500");
+    }
+  }
+
+  render();
+  // Refresca cada 30 segundos (no necesita ser muy frecuente)
+  setInterval(render, 30 * 1000);
+</script>
