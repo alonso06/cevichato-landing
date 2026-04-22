@@ -1,4 +1,8 @@
 ---
+interface Props {
+  targetDate: string;
+}
+
 const { targetDate, itsClose = true } = Astro.props;
 
 const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
@@ -22,11 +26,7 @@ const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
             </span>
           </div>
           {i < labels.length - 1 && (
-            <span
-              class={`label-count text-4xl md:text-6xl leading-none pb-5 md:pb-6 ${
-                itsClose ? "chalk-accent" : "text-terracotta"
-              }`}
-            >
+            <span class="label-count text-4xl md:text-6xl leading-none pb-5 md:pb-6">
               :
             </span>
           )}
