@@ -1,15 +1,52 @@
 ---
 import Hero from "../components/sections/Hero.astro";
-import ComboCard from "../components/ui/ComboCard.astro";
-import CountDown from "../components/ui/CountDown.astro";
-import ItemCounter from "../components/ui/ItemCounter.astro";
-import SaleButton from "../components/ui/SaleButton.astro";
+import ProducCard from "../components/ui/ProducCard.astro";
 import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const products = [
+  {
+    imgUrl: "https://picsum.photos/300/200",
+    name: "ceviche de pescado",
+    description:
+      "Pescado troceado, cebolla, ají limo, limón, culantro, choclo, camote y leche de tigre (secreto de la casa).",
+  },
+  {
+    imgUrl: "https://picsum.photos/300/200",
+    name: "ceviche de pescado",
+    description:
+      "Pescado troceado, cebolla, ají limo, limón, culantro, choclo, camote y leche de tigre (secreto de la casa).",
+  },
+  {
+    imgUrl: "https://picsum.photos/300/200",
+    name: "ceviche de pescado",
+    description:
+      "Pescado troceado, cebolla, ají limo, limón, culantro, choclo, camote y leche de tigre (secreto de la casa).",
+  },
+  {
+    imgUrl: "https://picsum.photos/300/200",
+    name: "ceviche de pescado",
+    description:
+      "Pescado troceado, cebolla, ají limo, limón, culantro, choclo, camote y leche de tigre (secreto de la casa).",
+  },
+];
 ---
 
 <Layout>
   <Hero />
+  <section class="py-5">
+    <div class="px-[0.938em]">
+      <h2 class="text-sky-base text-[2em]">CONOCE EL DETALLE</h2>
+      <hr class="border-brown-base border w-2/5 ml-2 -rotate-1" />
+    </div>
+    <!-- card -->
+    <div class="max-w-96 mx-auto mt-4">
+      {
+        products.map(({ imgUrl, name, description }) => {
+          return (
+            <ProducCard imgUrl={imgUrl} name={name} description={description} />
+          );
+        })
+      }
+    </div>
+  </section>
 </Layout>
