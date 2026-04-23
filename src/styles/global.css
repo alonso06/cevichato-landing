@@ -28,7 +28,7 @@ h1 {
   font-family: 'Caveat Variable', cursive;
 }
 
-h2, h3, #info-hero, #subtitle-hero {
+h2, h3, .question, #info-hero, #subtitle-hero, #others-options {
   font-family: "caveat brush";
 }
 
