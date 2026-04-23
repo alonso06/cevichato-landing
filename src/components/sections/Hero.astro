@@ -7,11 +7,11 @@ import SaleButton from "../ui/SaleButton.astro";
 
 <!-- Hero-section -->
 <section
-  class="flex flex-col justify-center items-center bg-sky-base px-[0.938em]"
+  class="flex flex-col justify-center items-center bg-[url(/hero-movil-2.jpg)] px-[0.938em]"
 >
   <div class="flex flex-col justify-center items-center gap-5">
     <!-- Reloj -->
-    <CountDown targetDate="2026-04-22T18:00:00" />
+    <CountDown targetDate="2026-04-24T18:00:00" />
     <!-- Contador -->
     <ItemCounter startTime="2026-04-22T12:00:00" />
   </div>
@@ -24,8 +24,8 @@ import SaleButton from "../ui/SaleButton.astro";
     </h1>
   </div>
   <div class="flex flex-col gap-3.5">
-    <ComboCard name="Combo 01" item="CEVICHE + ARROZ CON MARIZCOS" />
-    <ComboCard name="Combo 02" item="CEVICHE + ARROZ CON MARIZCOS" />
+    <ComboCard name="Combo 01" item1="CEVICHE" item2="ARROZ CON MARIZCOS" />
+    <ComboCard name="Combo 02" item1="CEVICHE" item2="CHICHARRÓN DE PESCADO" />
   </div>
   <p id="info-hero" class="text-xl mt-3.5 text-center">
     Reserva y asegura un dúo puedes recojerlo en tienda o te lo enviamos a casa

@@ -1,16 +1,24 @@
 ---
 interface Props {
   name: string;
-  item: string;
+  item1: string;
+  item2: string;
 }
 
-const { name, item } = Astro.props;
+const { name, item1, item2 } = Astro.props;
 ---
 
 <div class="text-center">
-  <h2 class="text-xl text-brown-base">{name}</h2>
+  <h2
+    class="text-2xl text-brown-base mb-3 underline decoration-wavy decoration-white decoration-2 underline-offset-4"
+  >
+    {name}
+  </h2>
   <p id="info-combo" class="text-2xl">
-    <span>{item} +</span>
-    <span class="text-yellow-base">1/2 JARRA DE CHICHA JORA</span>
+    <span>{item1} +</span>
+    <span class="bg-linear-to-l from-brown-v2-base/55 from-50% rounded-xl"
+      >{item2} +</span
+    >
+    <span class="">1/2 JARRA DE CHICHA MORADA</span>
   </p>
 </div>
