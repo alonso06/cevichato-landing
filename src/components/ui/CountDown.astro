@@ -13,23 +13,29 @@ const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
   data-target-date={targetDate}
 >
   <p id="title-countdown" class="text-lg md:text-xl">FINALIZA EN:</p>
-  <div id="items-countdown" class="flex items-end gap-3 p-2.5 md:gap-1">
+  <div
+    id="items-countdown"
+    class="flex items-end gap-3 p-2.5 md:gap-1 lg:px-2.5 lg:py-2"
+  >
     {
       labels.map((label, i) => (
         <div class="flex labels-end md:gap-1">
           <div class="flex flex-col items-center min-w-18 md:min-w-20">
-            <span class="text-[2em] md:text-4xl leading-none" data-time={label}>
+            <span
+              class="text-[2em] leading-none md:text-4xl lg:text-5xl"
+              data-time={label}
+            >
               00
             </span>
             <span
               class="
-             text-[1em] md:text-lg mt-1"
+             text-[1em] mt-1 md:text-lg"
             >
               {label}
             </span>
           </div>
           {i < labels.length - 1 && (
-            <span class="label-count text-4xl md:text-4xl leading-none pb-5 md:pb-3">
+            <span class="label-count text-4xl leading-none pb-5 md:pb-3 md:text-4xl">
               :
             </span>
           )}

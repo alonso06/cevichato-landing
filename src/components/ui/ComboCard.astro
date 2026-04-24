@@ -8,13 +8,13 @@ interface Props {
 const { name, item1, item2 } = Astro.props;
 ---
 
-<div class="text-center">
+<div class="text-center lg:w-125">
   <h2
-    class="text-2xl text-brown-base mb-3 underline decoration-wavy decoration-white decoration-2 underline-offset-4 md:text-3xl"
+    class="text-2xl text-brown-base mb-3 underline decoration-wavy decoration-white decoration-2 underline-offset-4 md:text-3xl lg:text-[2em]"
   >
     {name}
   </h2>
-  <p id="info-combo" class="text-2xl md:text-3xl">
+  <p id="info-combo" class="text-2xl md:text-3xl lg:text-[2em]">
     <span>{item1} +</span>
     <span class="bg-linear-to-l from-brown-v2-base/55 from-50% rounded-xl"
       >{item2} +</span
