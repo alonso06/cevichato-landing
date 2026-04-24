@@ -9,32 +9,36 @@ import SaleButton from "../ui/SaleButton.astro";
 <section
   class="flex flex-col justify-center items-center bg-[url(/hero-movil-2.jpg)] bg-no-repeat bg-cover px-[0.938em] md:px-9"
 >
-  <div class="flex flex-col justify-center items-center gap-5">
+  <div
+    class="flex flex-col justify-center items-center gap-3 md:flex md:flex-row md:justify-between md:items-center md:gap-32 md:mx-9"
+  >
     <!-- Reloj -->
     <CountDown targetDate="2026-04-24T18:00:00" />
     <!-- Contador -->
     <ItemCounter startTime="2026-04-22T12:00:00" />
   </div>
   <div class="flex flex-col text-center items-center justify-center mt-4 mb-5">
-    <p id="subtitle-hero" class="text-xl text-yellow-base">OFERTA ESPECIAL:</p>
+    <p id="subtitle-hero" class="text-xl text-yellow-base md:text-2xl">
+      OFERTA ESPECIAL:
+    </p>
     <h1 class="flex flex-col gap-1.5 text-brown-base">
       <span class="text-4xl">DÚO CEVICHATO</span>
       <hr class="border-white-base border w-4/5 ml-2 -rotate-1" />
       <span class="text-[2em] mt-0.5">S/.20</span>
     </h1>
   </div>
-  <div class="flex flex-col gap-3.5">
+  <div class="flex flex-col gap-3.5 md:mx-9 md:flex md:flex-row">
     <ComboCard name="Combo 01" item1="CEVICHE" item2="ARROZ CON MARIZCOS" />
     <ComboCard name="Combo 02" item1="CEVICHE" item2="CHICHARRÓN DE PESCADO" />
   </div>
-  <p id="info-hero" class="text-xl mt-3.5 text-center">
-    Reserva y asegura un dúo puedes recojerlo en tienda o te lo enviamos a casa
+  <p id="info-hero" class="text-xl mt-3.5 text-center md:text-2xl">
+    Reserva y asegura un dúo. Puedes recogerlo en tienda.
   </p>
   <SaleButton />
 </section>
 <div
   id="tape-offer"
-  class="w-full h-9 flex items-center overflow-hidden bg-yellow-base text-lg text-sky-base py-2"
+  class="w-full h-9 flex items-center overflow-hidden bg-yellow-base text-lg text-sky-base py-2 md:text-xl"
 >
   <div class="flex w-max whitespace-nowrap animate-scroll">
     <span class="mx-2">OFERTA LIMITADA - STOCK LIMITADO</span>
