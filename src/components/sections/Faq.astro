@@ -1,0 +1,44 @@
+---
+import FaqItem from "../ui/FaqItem.astro";
+
+const faqs = [
+  {
+    id: "faq-1",
+    question: "¿Cuánto es el costo del delivery?",
+    answer:
+      "El costo del delivery varía según tu ubicación. Para pedidos dentro de la ciudad, el costo es de S/5.00. Para zonas alejadas, puede aplicarse una tarifa adicional que se informará al momento de confirmar tu pedido.",
+  },
+  {
+    id: "faq-2",
+    question: "¿Cuánto tiempo demora mi pedido?",
+    answer:
+      "El tiempo de entrega estimado es de 30 a 45 minutos dependiendo de la distancia y la demanda del momento. Te notificaremos en tiempo real el estado de tu pedido.",
+  },
+  {
+    id: "faq-3",
+    question: "¿Cuáles son los métodos de pago aceptados?",
+    answer:
+      "Aceptamos pagos en efectivo, tarjetas de débito y crédito (Visa, Mastercard), así como transferencias bancarias y pagos por Yape o Plin.",
+  },
+  {
+    id: "faq-4",
+    question: "¿Puedo modificar mi pedido después de realizarlo?",
+    answer:
+      "Puedes modificar tu pedido dentro de los primeros 5 minutos después de confirmarlo. Pasado ese tiempo, el pedido ya estará en preparación y no podrá ser modificado.",
+  },
+];
+---
+
+<section class="bg-white-base py-5">
+  <div class="px-[0.938em]">
+    <h2 class="text-sky-base text-[2em]">PREGUNTAS FRECUENTES</h2>
+    <hr class="border-brown-base border w-2/5 ml-2 -rotate-1" />
+  </div>
+  <div class="max-w-96 mx-auto mt-5">
+    {
+      faqs.map(({ id, question, answer }) => (
+        <FaqItem id={id} question={question} answer={answer} />
+      ))
+    }
+  </div>
+</section>
