@@ -29,12 +29,14 @@ const faqs = [
 ];
 ---
 
-<section class="bg-white-base py-5">
-  <div class="px-[0.938em]">
-    <h2 class="text-sky-base text-[2em]">PREGUNTAS FRECUENTES</h2>
-    <hr class="border-brown-base border w-2/5 ml-2 -rotate-1" />
+<section class="bg-white-base py-5 md:px-9 lg:px-18 lg:py-10">
+  <div class="px-[0.938em] md:px-0">
+    <h2 class="text-sky-base text-[2em] md:text-4xl lg:text-[2.5em]">
+      RESPONDEMOS TUS PREGUNTAS
+    </h2>
+    <hr class="border-brown-base border w-70 ml-2 -rotate-1 md:w-86 lg:w-98" />
   </div>
-  <div class="max-w-96 mx-auto mt-5">
+  <div class="max-w-96 mx-auto mt-5 md:max-w-none md:mx-0 lg:mt-10">
     {
       faqs.map(({ id, question, answer }) => (
         <FaqItem id={id} question={question} answer={answer} />

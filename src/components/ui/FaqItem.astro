@@ -8,7 +8,7 @@ interface Props {
 const { id, question, answer } = Astro.props;
 ---
 
-<div class="faq-item px-2.5 pt-2.5 pb-5">
+<div class="faq-item px-2.5 pt-2.5 pb-5 md:px-0">
   <button
     type="button"
     id={id}
@@ -28,7 +28,9 @@ const { id, question, answer } = Astro.props;
       ></path>
     </svg>
 
-    <span class="question text-2xl uppercase text-sky-base">
+    <span
+      class="question text-xl uppercase text-sky-base md:text-[1.563em] lg:text-3xl"
+    >
       {question}
     </span>
   </button>
@@ -42,7 +44,9 @@ const { id, question, answer } = Astro.props;
     aria-labelledby={id}
   >
     <div class="overflow-hidden">
-      <p class="text-brown-v2-base px-5 leading-relaxed text-xl">
+      <p
+        class="text-brown-v2-base px-5 leading-relaxed text-xl md:text-[1.563em] lg:text-3xl"
+      >
         {answer}
       </p>
     </div>
