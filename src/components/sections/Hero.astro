@@ -3,6 +3,8 @@ import ComboCard from "../ui/ComboCard.astro";
 import CountDown from "../ui/CountDown.astro";
 import ItemCounter from "../ui/ItemCounter.astro";
 import SaleButton from "../ui/SaleButton.astro";
+
+const items: string[] = Array(10).fill("OFERTA LIMITADA - STOCK LIMITADO");
 ---
 
 <!-- Hero-section -->
@@ -45,10 +47,10 @@ import SaleButton from "../ui/SaleButton.astro";
 </section>
 <div
   id="tape-offer"
-  class="w-full h-9 flex items-center overflow-hidden bg-yellow-base text-lg text-sky-base py-2 md:text-xl"
+  class="w-auto h-9 flex items-center overflow-hidden bg-yellow-base text-lg text-sky-base py-2 md:text-xl"
 >
-  <div class="flex w-max whitespace-nowrap animate-scroll">
-    <span class="mx-2">OFERTA LIMITADA - STOCK LIMITADO</span>
-    <span class="mx-2">OFERTA LIMITADA - STOCK LIMITADO </span>
+  <div class="flex whitespace-nowrap animate-scroll">
+    <span class="mx-2 shrink-0">* OFERTA LIMITADA STOCK LIMITADO *</span>
+    <span class="mx-2 shrink-0">* OFERTA LIMITADA STOCK LIMITADO *</span>
   </div>
 </div>
