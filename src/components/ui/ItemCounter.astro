@@ -2,7 +2,6 @@
 interface Props {
   startTime: string;
 }
-
 const { startTime } = Astro.props;
 ---
 
@@ -15,14 +14,10 @@ const { startTime } = Astro.props;
 </div>
 
 <script>
-  const container = document.querySelector("[data-start-date]");
-  const START_TARGET_TIME = new Date(container.dataset.startDate).getTime();
   const STOCK_INITIAL = 10;
-  const START_TIME = new Date(START_TARGET_TIME).getTime();
+  const LS_KEY = "item_counter_state";
+  const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
 
-  // Generador de números pseudo-aleatorios con semilla fija (Mulberry32)
-  // Esto garantiza que todos los usuarios generen exactamente
-  // la misma secuencia de intervalos, sin necesidad de backend.
   function mulberry32(seed) {
     return function () {
       seed |= 0;
@@ -33,44 +28,95 @@ const { startTime } = Astro.props;
     };
   }
 
-  // Genera la lista de momentos (timestamps) en que ocurre cada disminución de stock.
-  // Los intervalos entre disminuciones van de 30 min a 2 horas (aleatorio con semilla fija).
   function generateDropSchedule(initialStock, startTime, seed = 42) {
     const rand = mulberry32(seed);
-    const MIN_INTERVAL = 30 * 60 * 1000; // 30 minutos
-    const MAX_INTERVAL = 2 * 60 * 60 * 1000; // 2 horas
+    const MIN_INTERVAL = 10 * 1000;
+    const MAX_INTERVAL = 30 * 1000;
+    // Producción:
+    // const MIN_INTERVAL = 30 * 60 * 1000;
+    // const MAX_INTERVAL = 2 * 60 * 60 * 1000;
 
     const schedule = [];
     let t = startTime;
-
     for (let i = 0; i < initialStock; i++) {
       const interval = MIN_INTERVAL + rand() * (MAX_INTERVAL - MIN_INTERVAL);
       t += interval;
       schedule.push(t);
     }
-
-    return schedule; // schedule[i] = timestamp en que el stock baja de (initial - i) a (initial - i - 1)
+    return schedule;
   }
 
-  // Calcula el stock actual según el tiempo real
-  function getCurrentStock(schedule, initialStock) {
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.scheduleStart && Array.isArray(parsed.schedule)) {
+          // 1️⃣ Garantizamos que pendingClicks siempre existe al cargar
+          if (!Array.isArray(parsed.pendingClicks)) {
+            parsed.pendingClicks = [];
+          }
+          return parsed;
+        }
+      }
+    } catch {}
+
+    const scheduleStart = Date.now();
+    const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
+    const state = { scheduleStart, schedule, pendingClicks: [] };
+    saveState(state);
+    return state;
+  }
+
+  function saveState(state) {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+    } catch {}
+  }
+
+  function clearState() {
+    try {
+      localStorage.removeItem(LS_KEY);
+    } catch {}
+  }
+
+  // 2️⃣ Cuenta drops automáticos + clicks que ya cumplieron los 6 minutos
+  function getCurrentStock(state) {
     const now = Date.now();
-    const drops = schedule.filter((t) => t <= now).length;
-    return Math.max(initialStock - drops, 0);
+    const autoDrop = state.schedule.filter((t) => t <= now).length;
+    const clickDrop = state.pendingClicks.filter((t) => t <= now).length;
+    return Math.max(STOCK_INITIAL - autoDrop - clickDrop, 0);
   }
 
-  const schedule = generateDropSchedule(STOCK_INITIAL, START_TIME);
   const stockEl = document.querySelector("[data-stock]");
+  let state = loadState();
 
   function render() {
-    const stock = getCurrentStock(schedule, STOCK_INITIAL);
-    stockEl.textContent = stock;
-    if (stock <= 3) {
-      stockEl?.classList.add("text-red-500");
+    let stock = getCurrentStock(state);
+
+    if (stock <= 1) {
+      clearState();
+      const scheduleStart = Date.now();
+      const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
+      state = { scheduleStart, schedule, pendingClicks: [] };
+      saveState(state);
+      stock = STOCK_INITIAL;
     }
+
+    stockEl.textContent = stock;
+    stock <= 3
+      ? stockEl.classList.add("text-red-500")
+      : stockEl.classList.remove("text-red-500");
   }
 
+  document.addEventListener("sale-click", () => {
+    const now = Date.now();
+    // 3️⃣ Guardamos el timestamp en que el click DEBE aplicarse (ahora + 6 min)
+    state.pendingClicks.push(now + CLICK_DELAY);
+    saveState(state);
+    // El stock NO cambia visualmente hasta que pasen los 6 minutos
+  });
+
   render();
-  // Refresca cada 30 segundos (no necesita ser muy frecuente)
-  setInterval(render, 30 * 1000);
+  setInterval(render, 5 * 1000);
 </script>

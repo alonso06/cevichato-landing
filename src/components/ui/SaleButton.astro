@@ -1,4 +1,15 @@
 <button
+  id="sale-button"
   class="w-38 border-2 text-sky-base rounded-lg text-2xl bg-yellow-base p-2 my-7.5 md:w-48 md:text-3xl lg:text-[2em] hover:border-2 hover:border-white-base lg:mt-5"
-  ><a href="#">OBTENER DÚO CON S/.10</a></button
 >
+  <a href="#">OBTENER DÚO CON S/.10</a>
+</button>
+
+<script>
+  // 5️⃣ NUEVO: al hacer click, lanzamos un evento global que ItemCounter escucha
+  const saleButton = document.getElementById("sale-button");
+
+  saleButton.addEventListener("click", () => {
+    document.dispatchEvent(new CustomEvent("sale-click"));
+  });
+</script>
