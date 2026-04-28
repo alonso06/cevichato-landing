@@ -55,8 +55,6 @@ const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
       const now = Date.now();
       const diff = target - now;
 
-      // console.log("Diff ", diff);
-
       if (diff <= 0) {
         return;
       }
@@ -75,15 +73,6 @@ const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
         '[data-time="SEGUNDOS"]',
       );
 
-      // if (!days || !hours || !minutes || !seconds) return;
-      // if (
-      //   !containerDays ||
-      //   !containerHours ||
-      //   !containerMinutes ||
-      //   !containerSeconds
-      // )
-      //   return;
-
       containerDays.textContent = String(days).padStart(2, "0");
 
       if (diff <= 3600000) {
@@ -98,6 +87,7 @@ const labels = ["DÍAS", "HORAS", "MINUTOS", "SEGUNDOS"];
       containerSeconds.textContent = String(seconds).padStart(2, "0");
     }
     updateCountdown();
+    console.count("Countdown iniciado");
     setInterval(updateCountdown, 1000);
   }
 </script>

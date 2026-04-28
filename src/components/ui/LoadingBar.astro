@@ -1,0 +1,88 @@
+---
+// src/components/LoadingBar.astro
+---
+
+<div id="loading-overlay">
+  <div id="loading-bar"></div>
+</div>
+
+<style>
+  #loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 9999;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  #loading-overlay.done {
+    opacity: 0;
+  }
+
+  #loading-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: #104474; /* tu color de marca */
+    border-radius: 0 2px 2px 0;
+    transition: width 0.3s ease;
+  }
+
+  #loading-bar::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 80px;
+    height: 7px;
+    background: #0b8cf1;
+    border-radius: 50%;
+    filter: blur(6px);
+  }
+</style>
+
+<script>
+  const overlay = document.getElementById("loading-overlay") as HTMLElement;
+  const bar = document.getElementById("loading-bar") as HTMLElement;
+  let interval: ReturnType<typeof setInterval>;
+  let progress = 0;
+
+  function start() {
+    clearInterval(interval);
+    progress = 0;
+    bar.style.width = "1%";
+
+    interval = setInterval(() => {
+      progress += (90 - progress) * 0.06;
+      bar.style.width = progress + "%";
+    }, 100);
+  }
+
+  function finish() {
+    clearInterval(interval);
+
+    // Completa la barra al 100%
+    bar.style.transition = "width 0.3s ease";
+    bar.style.width = "100%";
+
+    // Luego de que la barra llega al 100%, desvanece el overlay
+    setTimeout(() => {
+      overlay.classList.add("done");
+
+      // Una vez invisible, elimínalo del DOM para que no bloquee clicks
+      setTimeout(() => {
+        overlay.remove();
+      }, 500);
+    }, 350);
+  }
+
+  start();
+  window.addEventListener("load", finish);
+
+  // View Transitions
+  document.addEventListener("astro:before-preparation", start);
+  document.addEventListener("astro:page-load", finish);
+</script>

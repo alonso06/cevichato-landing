@@ -53,3 +53,26 @@ p, button, #tape-offer, #items-countdown{
   animation-play-state: paused;
 }
 
+.hero-section {
+  background-image: url('/hero-movil.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@supports (background-image: url('/hero-movil.webp')) {
+  .hero-section {
+    background-image: url('/hero-movil.webp');
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    background-image: url('/hero-desktop.jpg');
+  }
+
+  @supports (background-image: url('/hero-desktop.webp')) {
+    .hero-section {
+      background-image: url('/hero-desktop.webp');
+    }
+  }
+}
