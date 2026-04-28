@@ -14,9 +14,10 @@ const { startTime } = Astro.props;
 </div>
 
 <script>
-  const STOCK_INITIAL = 10;
+  let STOCK_INITIAL = 10;
   const LS_KEY = "item_counter_state";
   const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
+  const SCHEDULE_START = new Date("2026-04-28T17:00:00-05:00").getTime();
 
   function mulberry32(seed) {
     return function () {
@@ -66,7 +67,7 @@ const { startTime } = Astro.props;
       }
     } catch {}
 
-    const scheduleStart = Date.now();
+    const scheduleStart = SCHEDULE_START;
     const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
     const state = { scheduleStart, schedule, pendingClicks: [] };
     saveState(state);
@@ -105,7 +106,8 @@ const { startTime } = Astro.props;
       const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
       state = { scheduleStart, schedule, pendingClicks: [] };
       saveState(state);
-      stock = STOCK_INITIAL;
+      stock = 3;
+      STOCK_INITIAL = stock;
     }
 
     stockEl.textContent = stock;
@@ -123,5 +125,5 @@ const { startTime } = Astro.props;
   });
 
   render();
-  setInterval(render, 5 * 60 * 1000);
+  setInterval(render, 5 * 1000);
 </script>
