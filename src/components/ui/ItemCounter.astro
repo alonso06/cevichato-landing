@@ -16,7 +16,7 @@ const { startTime } = Astro.props;
 <script>
   const STOCK_INITIAL = 10;
   const LS_KEY = "item_counter_state";
-  const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
+  const CLICK_DELAY = 1 * 60 * 1000; // 6 minutos en ms
 
   function mulberry32(seed) {
     return function () {
@@ -33,17 +33,22 @@ const { startTime } = Astro.props;
     // const MIN_INTERVAL = 10 * 1000;
     // const MAX_INTERVAL = 30 * 1000;
     // Producción:
-    const MIN_INTERVAL = 30 * 60 * 1000;
-    const MAX_INTERVAL = 2 * 60 * 60 * 1000;
+    const DAY_MS = 24 * 60 * 60 * 1000;
 
     const schedule = [];
-    let t = startTime;
-    for (let i = 0; i < initialStock; i++) {
-      const interval = MIN_INTERVAL + rand() * (MAX_INTERVAL - MIN_INTERVAL);
-      t += interval;
-      schedule.push(t);
+    const dropsPerDay = 2;
+    const days = Math.ceil(initialStock / dropsPerDay); // 10/2 = 5 días
+
+    for (let day = 0; day < days; day++) {
+      for (let drop = 0; drop < dropsPerDay; drop++) {
+        const index = day * dropsPerDay + drop;
+        if (index >= initialStock) break;
+        const offset = rand() * DAY_MS;
+        schedule.push(startTime + day * DAY_MS + offset);
+      }
     }
-    return schedule;
+
+    return schedule.sort((a, b) => a - b);
   }
 
   function loadState() {
@@ -118,5 +123,5 @@ const { startTime } = Astro.props;
   });
 
   render();
-  setInterval(render, 5 * 60 * 1000);
+  setInterval(render, 1 * 60 * 1000);
 </script>

@@ -32,7 +32,7 @@ h2, h3, .question, #info-hero, #subtitle-hero, #others-options {
   font-family: "caveat brush";
 }
 
-p, button, #tape-offer, #items-countdown{
+p, button, #tape-offer, #items-countdown,.buttons{
   font-family: 'Bebas neue';
 }
 
