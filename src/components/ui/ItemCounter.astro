@@ -16,7 +16,7 @@ const { startTime } = Astro.props;
 <script>
   const STOCK_INITIAL = 10;
   const LS_KEY = "item_counter_state";
-  const CLICK_DELAY = 1 * 60 * 1000; // 6 minutos en ms
+  const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
 
   function mulberry32(seed) {
     return function () {
@@ -123,5 +123,5 @@ const { startTime } = Astro.props;
   });
 
   render();
-  setInterval(render, 1 * 60 * 1000);
+  setInterval(render, 5 * 60 * 1000);
 </script>
