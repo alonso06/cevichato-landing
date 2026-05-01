@@ -14,10 +14,13 @@ const { startTime } = Astro.props;
 </div>
 
 <script>
+  import { parse } from "astro:schema";
+
   let STOCK_INITIAL = 9;
   const LS_KEY = "item_counter_state";
   const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
   const SCHEDULE_START = new Date("2026-04-30T22:00:00-05:00").getTime();
+  const STATE_VERSION = 2;
 
   function mulberry32(seed) {
     return function () {
@@ -57,7 +60,11 @@ const { startTime } = Astro.props;
       const raw = localStorage.getItem(LS_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (parsed.scheduleStart && Array.isArray(parsed.schedule)) {
+        if (
+          parsed.version === STATE_VERSION &&
+          parsed.scheduleStart &&
+          Array.isArray(parsed.schedule)
+        ) {
           // 1️⃣ Garantizamos que pendingClicks siempre existe al cargar
           if (!Array.isArray(parsed.pendingClicks)) {
             parsed.pendingClicks = [];
@@ -69,14 +76,22 @@ const { startTime } = Astro.props;
 
     const scheduleStart = SCHEDULE_START;
     const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
-    const state = { scheduleStart, schedule, pendingClicks: [] };
+    const state = {
+      version: STATE_VERSION,
+      scheduleStart,
+      schedule,
+      pendingClicks: [],
+    };
     saveState(state);
     return state;
   }
 
   function saveState(state) {
     try {
-      localStorage.setItem(LS_KEY, JSON.stringify(state));
+      localStorage.setItem(
+        LS_KEY,
+        JSON.stringify({ ...state, version: STATE_VERSION }),
+      );
     } catch {}
   }
 
