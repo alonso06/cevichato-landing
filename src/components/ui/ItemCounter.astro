@@ -10,17 +10,17 @@ const { startTime } = Astro.props;
   class="w-22 text-center border border-white-base rounded-lg py-2 px-5 md:py-1"
 >
   <p class="text-lg">QUEDAN</p>
-  <p class="text-5xl md:text-4xl lg:text-5xl" data-stock>3</p>
+  <p class="text-5xl md:text-4xl lg:text-5xl" data-stock>0</p>
 </div>
 
 <script>
   import { parse } from "astro:schema";
 
-  let STOCK_INITIAL = 3;
+  let STOCK_INITIAL = 0;
   const LS_KEY = "item_counter_state";
   const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
   const SCHEDULE_START = Date.now();
-  const STATE_VERSION = 3;
+  const STATE_VERSION = 0;
 
   function mulberry32(seed) {
     return function () {
