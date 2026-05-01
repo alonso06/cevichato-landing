@@ -115,15 +115,15 @@ const { startTime } = Astro.props;
   function render() {
     let stock = getCurrentStock(state);
 
-    // if (stock <= 1) {
-    //   clearState();
-    //   const scheduleStart = Date.now();
-    //   const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
-    //   state = { scheduleStart, schedule, pendingClicks: [] };
-    //   saveState(state);
-    //   stock = 3;
-    //   STOCK_INITIAL = stock;
-    // }
+    if (stock <= 1) {
+      clearState();
+      const scheduleStart = Date.now();
+      const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
+      state = { scheduleStart, schedule, pendingClicks: [] };
+      saveState(state);
+      stock = 0;
+      STOCK_INITIAL = stock;
+    }
 
     stockEl.textContent = stock;
     stock <= 4
