@@ -10,17 +10,17 @@ const { startTime } = Astro.props;
   class="w-22 text-center border border-white-base rounded-lg py-2 px-5 md:py-1"
 >
   <p class="text-lg">QUEDAN</p>
-  <p class="text-5xl md:text-4xl lg:text-5xl" data-stock>9</p>
+  <p class="text-5xl md:text-4xl lg:text-5xl" data-stock>3</p>
 </div>
 
 <script>
   import { parse } from "astro:schema";
 
-  let STOCK_INITIAL = 9;
+  let STOCK_INITIAL = 3;
   const LS_KEY = "item_counter_state";
   const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
-  const SCHEDULE_START = new Date("2026-04-30T22:00:00-05:00").getTime();
-  const STATE_VERSION = 2;
+  const SCHEDULE_START = Date.now();
+  const STATE_VERSION = 3;
 
   function mulberry32(seed) {
     return function () {
@@ -37,7 +37,7 @@ const { startTime } = Astro.props;
     // const MIN_INTERVAL = 10 * 1000;
     // const MAX_INTERVAL = 30 * 1000;
     // Producción: Cada 3.5 horas disminuirá en 1 para llegar a las 12 del día primero con 3 items
-    const DAY_MS = 3.5 * 60 * 60 * 1000;
+    const DAY_MS = 5 * 60 * 1000;
 
     const schedule = [];
     const dropsPerDay = 1;
@@ -115,15 +115,15 @@ const { startTime } = Astro.props;
   function render() {
     let stock = getCurrentStock(state);
 
-    if (stock <= 1) {
-      clearState();
-      const scheduleStart = Date.now();
-      const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
-      state = { scheduleStart, schedule, pendingClicks: [] };
-      saveState(state);
-      stock = 3;
-      STOCK_INITIAL = stock;
-    }
+    // if (stock <= 1) {
+    //   clearState();
+    //   const scheduleStart = Date.now();
+    //   const schedule = generateDropSchedule(STOCK_INITIAL, scheduleStart);
+    //   state = { scheduleStart, schedule, pendingClicks: [] };
+    //   saveState(state);
+    //   stock = 3;
+    //   STOCK_INITIAL = stock;
+    // }
 
     stockEl.textContent = stock;
     stock <= 4
