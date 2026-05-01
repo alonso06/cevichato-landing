@@ -131,13 +131,13 @@ const { startTime } = Astro.props;
       : stockEl.classList.remove("text-red-500");
   }
 
-  document.addEventListener("sale-click", () => {
-    const now = Date.now();
-    // 3️⃣ Guardamos el timestamp en que el click DEBE aplicarse (ahora + 6 min)
-    state.pendingClicks.push(now + CLICK_DELAY);
-    saveState(state);
-    // El stock NO cambia visualmente hasta que pasen los 6 minutos
-  });
+  // document.addEventListener("sale-click", () => {
+  //   const now = Date.now();
+  //   // 3️⃣ Guardamos el timestamp en que el click DEBE aplicarse (ahora + 6 min)
+  //   state.pendingClicks.push(now + CLICK_DELAY);
+  //   saveState(state);
+  //   // El stock NO cambia visualmente hasta que pasen los 6 minutos
+  // });
 
   render();
   setInterval(render, 5 * 60 * 1000);
