@@ -10,14 +10,14 @@ const { startTime } = Astro.props;
   class="w-22 text-center border border-white-base rounded-lg py-2 px-5 md:py-1"
 >
   <p class="text-lg">QUEDAN</p>
-  <p class="text-5xl md:text-4xl lg:text-5xl" data-stock>10</p>
+  <p class="text-5xl md:text-4xl lg:text-5xl" data-stock>9</p>
 </div>
 
 <script>
-  let STOCK_INITIAL = 10;
+  let STOCK_INITIAL = 9;
   const LS_KEY = "item_counter_state";
   const CLICK_DELAY = 6 * 60 * 1000; // 6 minutos en ms
-  const SCHEDULE_START = new Date("2026-04-28T17:00:00-05:00").getTime();
+  const SCHEDULE_START = new Date("2026-04-30T22:00:00-05:00").getTime();
 
   function mulberry32(seed) {
     return function () {
@@ -33,11 +33,11 @@ const { startTime } = Astro.props;
     const rand = mulberry32(seed);
     // const MIN_INTERVAL = 10 * 1000;
     // const MAX_INTERVAL = 30 * 1000;
-    // Producción:
-    const DAY_MS = 24 * 60 * 60 * 1000;
+    // Producción: Cada 3.5 horas disminuirá en 1 para llegar a las 12 del día primero con 3 items
+    const DAY_MS = 3.5 * 60 * 60 * 1000;
 
     const schedule = [];
-    const dropsPerDay = 2;
+    const dropsPerDay = 1;
     const days = Math.ceil(initialStock / dropsPerDay); // 10/2 = 5 días
 
     for (let day = 0; day < days; day++) {
@@ -111,7 +111,7 @@ const { startTime } = Astro.props;
     }
 
     stockEl.textContent = stock;
-    stock <= 3
+    stock <= 4
       ? stockEl.classList.add("text-red-500")
       : stockEl.classList.remove("text-red-500");
   }
